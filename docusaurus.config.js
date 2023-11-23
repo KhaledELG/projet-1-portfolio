@@ -1,11 +1,11 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: 'My Portfolio',
+  title: "KhaledELG's Portfolio",
   tagline: 'A React-based static github website template.',
   url: 'https://github.com',
   baseUrl: '/',
-  organizationName: 'KhaledELG', // Usually your GitHub org/user name.
-  projectName: '', // Usually your repo name.
+  organizationName: 'KhaledELG',
+  projectName: '',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -35,7 +35,7 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: 'silva-nick',
+          title: 'KhaledELG',
           items: [
             {
               label: 'Home',
@@ -44,11 +44,24 @@ module.exports = {
             {
               label: 'Resume',
               to: '/docs/resume',
+            }
+          ],
+        },
+        {
+          title: 'Socials',
+          items: [
+            {
+              label: 'LinkedIn',
+              to: 'https://www.linkedin.com/in/khaled-el-ghammarti',
+            },
+            {
+              label: 'GitLab',
+              to: 'https://gitlab.com/kelg',
             },
             {
               label: 'GitHub',
-              to: 'https://github.com/<GITHUB-USER>',
-            },
+              to: 'https://github.com/KhaledELG',
+            }
           ],
         },
         {
@@ -59,17 +72,12 @@ module.exports = {
               to: '/docs/about',
             },
             {
-              label: 'Timeline',
-              to: '/docs/timeline',
-            },
-            {
               label: 'Blog',
               to: '/blog',
             },
           ],
         },
       ],
-      // copyright: `Copyright © ${new Date().getFullYear()} MyPortfolio. Built with Docusaurus.`,
     },
   },
 
@@ -99,15 +107,13 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://gitlab.com/kelg',
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+            'https://gitlab.com/kelg',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
