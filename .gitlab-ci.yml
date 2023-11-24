@@ -32,7 +32,7 @@ docker:
   image: docker:24.0.5
   services:
     - name: docker:24.0.5-dind
-      alias: dind
+      alias: dindon
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
   variables:
