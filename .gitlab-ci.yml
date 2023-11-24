@@ -31,13 +31,12 @@ docker:
   stage: build
   image: docker:24.0.5
   services:
-    - docker:24.0.5-dind
+    - name: docker:24.0.5-dind
+      alias: dind
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
   variables:
-  #   DOCKER_DRIVER: overlay2
-    DOCKER_HOST: tcp://docker:2375
-  #   STORAGE_DRIVER: vfs
+    DOCKER_HOST: tcp://dind:2375
   before_script:
     - docker info
     # - mkdir $PWD/.docker
