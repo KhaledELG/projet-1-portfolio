@@ -42,6 +42,8 @@ docker:
     # - echo "{\"auths\":{\"${CI_GITHUB_HOST}\":{\"auth\":\"$(printf "%s:%s" "${CI_GITHUB_USER}" "${CI_GITHUB_TOKEN}" | base64 | tr -d '\n')\"}}}" > $PWD/.docker/config.json
     # - cat $PWD/.docker/config.json
     # - docker login ${CI_GITHUB_HOST}
+    - whoami
+    - mkdir ~/.docker
     - echo "{\"auths\":{\"${CI_GITHUB_HOST}\":{\"auth\":\"$(printf "%s:%s" "${CI_GITHUB_USER}" "${CI_GITHUB_TOKEN}" | base64 | tr -d '\n')\"}}}" > ~/.docker/config.json
     - docker login ${CI_GITHUB_HOST}
   script:
