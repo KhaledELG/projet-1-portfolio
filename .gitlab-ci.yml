@@ -29,12 +29,9 @@ docker:
     name: docker:latest
   variables:
     DOCKER_DRIVER: overlay2
-    DOCKER_REGISTRY_HOST: host-exemple
-    DOCKER_REGISTRY_USER: user-exemple
-    DOCKER_REGISTRY_TOKEN: token-exemple
   before_script:
-    - echo "{\"auths\":{\"${DOCKER_REGISTRY_HOST}\":{\"auth\":\"$(printf "%s:%s" "${DOCKER_REGISTRY_USER}" "${DOCKER_REGISTRY_TOKEN}" | base64 | tr -d '\n')\"}}}" > ~/.docker/config.json
-    - docker login ghcr.io/khaledelg
+    - echo "{\"auths\":{\"${CI_GITHUB_HOST}\":{\"auth\":\"$(printf "%s:%s" "${CI_GITHUB_USER}" "${CI_GITHUB_TOKEN}" | base64 | tr -d '\n')\"}}}" > ~/.docker/config.json
+    - docker login ${CI_GITHUB_HOST}
   script:
     - docker build 
     - docker push
