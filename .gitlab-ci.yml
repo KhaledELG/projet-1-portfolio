@@ -29,21 +29,21 @@ pages:
 
 docker:
   stage: build
-  image: 
-    name: docker:latest
+  image: docker:24.0.5
   services:
-    - name: docker:19.03-dind
+    - docker:24.0.5-dind
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
   variables:
-    DOCKER_DRIVER: overlay
-    DOCKER_HOST: "tcp://localhost:2375"
-    STORAGE_DRIVER: vfs
+  #   DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://localhost:2375
+  #   STORAGE_DRIVER: vfs
   before_script:
-    - mkdir $PWD/.docker
-    - echo "{\"auths\":{\"${CI_GITHUB_HOST}\":{\"auth\":\"$(printf "%s:%s" "${CI_GITHUB_USER}" "${CI_GITHUB_TOKEN}" | base64 | tr -d '\n')\"}}}" > $PWD/.docker/config.json
-    - cat $PWD/.docker/config.json
+    - docker info
+    # - mkdir $PWD/.docker
+    # - echo "{\"auths\":{\"${CI_GITHUB_HOST}\":{\"auth\":\"$(printf "%s:%s" "${CI_GITHUB_USER}" "${CI_GITHUB_TOKEN}" | base64 | tr -d '\n')\"}}}" > $PWD/.docker/config.json
+    # - cat $PWD/.docker/config.json
     # - docker login ${CI_GITHUB_HOST}
   script:
     - docker build -t toto:1.1 .
-    - docker push toto:1.1
+    # - docker push toto:1.1
