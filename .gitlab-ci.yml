@@ -31,6 +31,8 @@ docker:
   stage: build
   image: 
     name: docker:latest
+  services:
+    - name: docker:19.03-dind
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
   variables:
