@@ -39,7 +39,8 @@ docker:
   before_script:
     - mkdir $PWD/.docker
     - echo "{\"auths\":{\"${CI_GITHUB_HOST}\":{\"auth\":\"$(printf "%s:%s" "${CI_GITHUB_USER}" "${CI_GITHUB_TOKEN}" | base64 | tr -d '\n')\"}}}" > $PWD/.docker/config.json
-    - docker login ${CI_GITHUB_HOST}
+    - cat $PWD/.docker/config.json
+    # - docker login ${CI_GITHUB_HOST}
   script:
     - docker build -t toto:1.1 .
     - docker push toto:1.1
