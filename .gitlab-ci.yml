@@ -1,17 +1,20 @@
-image: node:15.12-alpine3.13
-
 stages:
   - test
-  - deploy
+  - pages
+  - build
 
 test:
   stage: test
+  image: 
+    name: node:15.12-alpine3.13
   script:
     - npm install --force
     - npm run build
 
 pages:
-  stage: deploy
+  stage: pages
+  image: 
+    name: node:15.12-alpine3.13
   script:
     - npm install --force
     - npm run build
@@ -19,5 +22,19 @@ pages:
   artifacts:
     paths:
     - public
-  only:
-    - pages
+
+docker:
+  stage: build
+  image: 
+    name: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_REGISTRY_HOST: host-exemple
+    DOCKER_REGISTRY_USER: user-exemple
+    DOCKER_REGISTRY_TOKEN: token-exemple
+  before_script:
+    - echo "{\"auths\":{\"${DOCKER_REGISTRY_HOST}\":{\"auth\":\"$(printf "%s:%s" "${DOCKER_REGISTRY_USER}" "${DOCKER_REGISTRY_TOKEN}" | base64 | tr -d '\n')\"}}}" > ~/.docker/config.json
+    - docker login ghcr.io/khaledelg
+  script:
+    - docker build 
+    - docker push
