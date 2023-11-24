@@ -38,6 +38,7 @@ docker:
   variables:
     DOCKER_DRIVER: overlay
     DOCKER_HOST: "tcp://localhost:2375"
+    STORAGE_DRIVER: vfs
   before_script:
     - mkdir $PWD/.docker
     - echo "{\"auths\":{\"${CI_GITHUB_HOST}\":{\"auth\":\"$(printf "%s:%s" "${CI_GITHUB_USER}" "${CI_GITHUB_TOKEN}" | base64 | tr -d '\n')\"}}}" > $PWD/.docker/config.json
