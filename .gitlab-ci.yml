@@ -1,6 +1,7 @@
 stages:
   - pages
   - build
+  - semantic_release
 
 pages:
   stage: pages
@@ -52,6 +53,7 @@ docker:build:
     - docker push ${CI_GITHUB_HOST}/docausurus:1.0.0
 
 semantic_release:
+  stage: semantic_release
   image: node:18.18.2-bullseye
   variables:
     GIT_CREDENTIALS: "${CI_GITLAB_USER}:${CI_GITLAB_PASSWORD}"
