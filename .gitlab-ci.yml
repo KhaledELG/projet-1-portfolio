@@ -56,7 +56,7 @@ semantic_release:
   stage: semantic_release
   image: node:18.18.2-bullseye
   variables:
-    GIT_CREDENTIALS: "${CI_GITLAB_USER}:${CI_GITLAB_PASSWORD}"
+    GIT_CREDENTIALS: "${PROJECT_ACCESS_USER}:${PROJECT_ACCESS_TOKEN}"
   before_script:
     - npm install -g semantic-release @semantic-release/gitlab@v12.0.3 @semantic-release/changelog conventional-changelog-conventionalcommits @semantic-release/commit-analyzer @semantic-release/git
   script:
