@@ -38,6 +38,7 @@ docker:
   variables:
     DOCKER_HOST: tcp://dind:2375
   before_script:
+    - ls -l */*
     - mkdir ~/.docker
     - echo "{\"auths\":{\"${CI_GITHUB_HOST}\":{\"auth\":\"$(printf "%s:%s" "${CI_GITHUB_USER}" "${CI_GITHUB_TOKEN}" | base64 | tr -d '\n')\"}}}" > ~/.docker/config.json
   script:
