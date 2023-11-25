@@ -1,23 +1,13 @@
 stages:
-  - test
   - pages
   - build
-
-test:
-  stage: test
-  image: 
-    name: node:15.12-alpine3.13
-  rules:
-    - if: $CI_COMMIT_REF_NAME == 'develop'
-  script:
-    - cd website
-    - npm install --force
-    - npm run build
 
 pages:
   stage: pages
   image: 
     name: node:15.12-alpine3.13
+  rules:
+    - if: $CI_COMMIT_REF_NAME == 'develop'
   script:
     - cd website
     - npm install --force
@@ -27,7 +17,22 @@ pages:
     paths:
     - public
 
-docker:
+npm:build:
+  stage: build
+  image: 
+    name: node:15.12-alpine3.13
+  rules:
+    - if: $CI_COMMIT_REF_NAME == 'main'
+  script:
+    - cd website
+    - npm install --force
+    - npm run build
+    - mv ./build ../public
+  artifacts:
+    paths:
+    - public
+
+docker:build:
   stage: build
   image: docker:24.0.5
   services:
@@ -35,6 +40,7 @@ docker:
       alias: dind
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
+  needs: ["npm:build"]
   variables:
     DOCKER_HOST: tcp://dind:2375
   before_script:
@@ -44,3 +50,17 @@ docker:
   script:
     - docker build -f ./deployment/Dockerfile -t ${CI_GITHUB_HOST}/docausurus:1.0.0 .
     - docker push ${CI_GITHUB_HOST}/docausurus:1.0.0
+
+semantic_release:
+  image: node:18.18.2-bullseye
+  variables:
+    GIT_CREDENTIALS: "${CI_GITLAB_USER}:${CI_GITLAB_PASSWORD}"
+  before_script:
+    - npm install -g semantic-release @semantic-release/gitlab@v12.0.3 @semantic-release/changelog conventional-changelog-conventionalcommits @semantic-release/commit-analyzer @semantic-release/git
+  script:
+    - |
+      echo "===== GitLab CI/CD | Semantic release ====="
+      echo "[INFO] Project name: ${CI_PROJECT_NAME} -- Branch: ${CI_COMMIT_BRANCH} -- Tag: ${CI_COMMIT_TAG}"
+
+    - semantic-release
+  allow_failure: true
