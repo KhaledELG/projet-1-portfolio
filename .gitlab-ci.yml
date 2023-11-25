@@ -18,8 +18,6 @@ pages:
   stage: pages
   image: 
     name: node:15.12-alpine3.13
-  rules:
-    - if: $CI_COMMIT_REF_NAME == 'develop'
   script:
     - cd website
     - npm install --force
