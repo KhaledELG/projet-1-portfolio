@@ -59,6 +59,12 @@ semantic_release:
       semantic-release
       IMAGE_TAG=$(curl -skL -H "Authorization: Bearer ${GL_TOKEN}" -X GET "https://gitlab.com/kelg/linkedin/projet-1/portfolio/-/blob/main/CHANGELOG.md?ref_type=heads"  | grep "Release " | awk -F 'Release ' '{print $2}' | awk -F '</a>' '{print $1}')
       echo "IMAGE_TAG=$IMAGE_TAG" > build.env
+      if [ -s build.env ]; then
+        echo "IMAGE_TAG defined."
+      else
+        echo "IMAGE_TAG defined."
+        echo "IMAGE_TAG=$CI_PIPELINE_ID" > build.env
+      fi
   after_script:
     - |
       echo "[INFO] Semantic release done!"
