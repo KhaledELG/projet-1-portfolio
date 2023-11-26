@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.7](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.0.6...v1.0.7) (2023-11-26)
+
+
+### Bug Fixes
+
+* **toto:** totoX ([6b40960](https://gitlab.com/kelg/linkedin/projet-1/portfolio/commit/6b4096015dfe41ae140231c0e5f266dc36cfb91a))
+
 ## [1.0.6](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.0.5...v1.0.6) (2023-11-26)
 
 
