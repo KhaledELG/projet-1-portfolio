@@ -54,7 +54,7 @@ docker:build:
     - docker build -f ./deployment/Dockerfile -t ${CI_GITHUB_HOST}/docausurus:1.0.0 .
     - docker push ${CI_GITHUB_HOST}/docausurus:1.0.0
 
-test:
+test1:
   stage: test1
   image: alpine:latest
   script:
@@ -74,7 +74,7 @@ semantic_release:
 
     - semantic-release
 
-test:
+test2:
   stage: test2
   image: alpine:latest
   script:
