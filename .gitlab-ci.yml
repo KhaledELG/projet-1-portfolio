@@ -80,7 +80,7 @@ docker:build:
       alias: dind
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
-  needs: ["npm:build"]
+  needs: ["semantic_release","npm:build"]
   variables:
     DOCKER_HOST: tcp://dind:2375
   before_script:
