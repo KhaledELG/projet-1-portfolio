@@ -12,7 +12,7 @@ class ContentFrame extends Component {
             <img
               className={styles.backgroundImg}
               src={
-                require('../../../static/img/DevSecOps.png').default
+                require('../../../static/img/DevSecOps-dark.png').default
               }
             />
           </div>
