@@ -5,7 +5,7 @@ workflow:
 
 stages:
   - decrypt
-  - semantic_release
+  - release
   - build
   - deploy
 
@@ -39,13 +39,12 @@ decrypt:
       dotenv: secrets.txt
 
 semantic_release:
-  stage: semantic_release
+  stage: release
   image:
     name: node:18.18.2-bullseye
     entrypoint: [""]
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
-    - if: $CI_COMMIT_REF_NAME =~ /^feat/
   variables:
     GIT_CREDENTIALS: "${PROJECT_ACCESS_USER}:${PROJECT_ACCESS_TOKEN}"
   before_script:
@@ -59,15 +58,29 @@ semantic_release:
     - |
       IMAGE_TAG=$(curl -skL -H "Authorization: Bearer ${GL_TOKEN}" -X GET "https://gitlab.com/kelg/linkedin/projet-1/portfolio/-/blob/main/CHANGELOG.md?ref_type=heads"  | grep "Release " | awk -F 'Release ' '{print $2}' | awk -F '</a>' '{print $1}')
       echo "IMAGE_TAG=$IMAGE_TAG" > build.env
-      if [ -s build.env ]; then
-        echo "IMAGE_TAG defined."
-      else
-        echo "IMAGE_TAG defined."
-        echo "IMAGE_TAG=$CI_PIPELINE_ID" > build.env
-      fi
   after_script:
     - |
       echo "[INFO] Semantic release done!"
+  artifacts:
+    reports:
+      dotenv: build.env
+
+feat_release:
+  stage: release
+  image:
+    name: node:18.18.2-bullseye
+    entrypoint: [""]
+  rules:
+    - if: $CI_COMMIT_REF_NAME =~ /^feat/
+  before_script:
+    - |
+      echo "===== GitLab CI/CD | Feat release ====="
+      echo "[INFO] Project name: ${CI_PROJECT_NAME} -- Branch: ${CI_COMMIT_BRANCH} -- Tag: ${CI_COMMIT_TAG}"
+  script:
+    - echo "IMAGE_TAG=$CI_PIPELINE_ID" > build.env
+  after_script:
+    - |
+      echo "[INFO] Feat release set!"
   artifacts:
     reports:
       dotenv: build.env
