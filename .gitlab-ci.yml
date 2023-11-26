@@ -67,8 +67,7 @@ semantic_release:
 
     - semantic-release
     - echo "IMAGE_TAG=${nextRelease.version}" > build.env
-    - cat build.env
-    - pwd
+    - curl google.com
   artifacts:
     reports:
       dotenv: build.env
