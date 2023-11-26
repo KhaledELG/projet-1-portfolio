@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portfolio
+  template:
+    metadata:
+      labels:
+        app: portfolio
+    spec:
+      containers:
+      - name: portfolio
+        image: ${CI_GITHUB_HOST}/docausurus:${IMAGE_TAG}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: registry-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portfolio-svc
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: homepage
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: portfolio-ingress
+  namespace: default
+  annotations:
+    kubectl.kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+spec:
+  rules:
+    - host: fr-forge.dotsinfra.com
+      http:
+        paths:
+          - path: /portfolio
+            pathType: Prefix
+            backend:
+              service:
+                name: portfolio-svc
+                port:
+                  number: 80
+  tls:
+    - hosts:
+      - fr-forge.dotsinfra.com
+      secretName: k3s-dotsinfra-com-tls
