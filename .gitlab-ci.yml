@@ -38,7 +38,7 @@ decrypt:
     reports:
       dotenv: secrets.txt
 
-semantic_release:
+semantic_release:release:
   stage: release
   image:
     name: node:18.18.2-bullseye
@@ -65,7 +65,7 @@ semantic_release:
     reports:
       dotenv: build.env
 
-feat_release:
+feat_release:release:
   stage: release
   image:
     name: node:18.18.2-bullseye
@@ -123,7 +123,7 @@ docker:build:
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
     - if: $CI_COMMIT_REF_NAME =~ /^feat/
-  needs: ["semantic_release","npm:build"]
+  needs: ["semantic_release:release","npm:build"]
   variables:
     DOCKER_HOST: tcp://dind:2375
     APP_NAME: portfolio
