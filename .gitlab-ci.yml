@@ -45,6 +45,7 @@ semantic_release:
     entrypoint: [""]
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
+    - if: $CI_COMMIT_REF_NAME =~ /^feat/
   variables:
     GIT_CREDENTIALS: "${PROJECT_ACCESS_USER}:${PROJECT_ACCESS_TOKEN}"
   before_script:
@@ -72,6 +73,7 @@ npm:build:
     entrypoint: [""]
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
+    - if: $CI_COMMIT_REF_NAME =~ /^feat/
   before_script:
     - |
       echo "===== GitLab CI/CD | NPM Build ====="
@@ -101,6 +103,7 @@ docker:build:
       alias: dind
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
+    - if: $CI_COMMIT_REF_NAME =~ /^feat/
   needs: ["semantic_release","npm:build"]
   variables:
     DOCKER_HOST: tcp://dind:2375
