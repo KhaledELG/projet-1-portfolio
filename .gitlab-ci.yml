@@ -1,7 +1,6 @@
 stages:
   - pages
   - build
-  - test1
   - semantic_release
   - test2
 
