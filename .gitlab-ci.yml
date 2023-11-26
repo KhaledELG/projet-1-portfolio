@@ -67,7 +67,7 @@ semantic_release:
 
     - semantic-release
     - |
-      IMAGE_TAG=${curl -skL -H "Authorization: Bearer ${GL_TOKEN}" -X GET "https://gitlab.com/kelg/linkedin/projet-1/portfolio/-/blob/main/CHANGELOG.md?ref_type=heads"  | grep "Release " | awk -F 'Release ' '{print $2}' | awk -F '</a>' '{print $1}'}
+      IMAGE_TAG=$(curl -skL -H "Authorization: Bearer ${GL_TOKEN}" -X GET "https://gitlab.com/kelg/linkedin/projet-1/portfolio/-/blob/main/CHANGELOG.md?ref_type=heads"  | grep "Release " | awk -F 'Release ' '{print $2}' | awk -F '</a>' '{print $1}')
       echo "IMAGE_TAG=$IMAGE_TAG" > build.env
       cat build.env
   artifacts:
