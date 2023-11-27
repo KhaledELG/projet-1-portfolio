@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.0.1...v1.0.2) (2023-11-27)
+
+
+### Bug Fixes
+
+* Correction permission sur le KubeConfig ([6e14360](https://gitlab.com/kelg/linkedin/projet-1/portfolio/commit/6e1436040e6c217204f188dd98f9e2fd6df73e0a))
+
 ## [1.0.1](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.0.0...v1.0.1) (2023-11-27)
 
 
