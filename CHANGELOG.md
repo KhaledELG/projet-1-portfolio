@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.0.2...v1.0.3) (2023-11-27)
+
+
+### Bug Fixes
+
+* Correction dépandance entre jobs ([938b2e0](https://gitlab.com/kelg/linkedin/projet-1/portfolio/commit/938b2e01ddabe2abaa704838105e591f3f1e486f))
+
 ## [1.0.2](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.0.1...v1.0.2) (2023-11-27)
 
 
