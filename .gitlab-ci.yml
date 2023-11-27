@@ -221,7 +221,9 @@ kubernetes:kubeconfig:
       chmod 600 ~/.ssh/id_rsa
       touch ~/.ssh/config
       echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - scp $AWS_SSH_USER@$AWS_EC2_CURRENT_IP:~/.kube/config config
+    - |
+      scp $AWS_SSH_USER@$AWS_EC2_CURRENT_IP:~/.kube/config config
+      chmod 644 config
   after_script:
     - |
       echo "[INFO] KubeConfig retrieved!"
