@@ -209,7 +209,7 @@ kubernetes:deploy:
     entrypoint: [""]
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
-  needs: ["kubernetes:kubeconfig"]
+  needs: ["semantic_release:release","kubernetes:kubeconfig"]
   before_script:
     - |
       echo "===== GitLab CI/CD | Kubernetes ====="
@@ -218,10 +218,7 @@ kubernetes:deploy:
   script:
     - cp config ~/.kube/config
     - export KUBECONFIG=~/.kube/config
-    - |
-      export IMAGE_TAG=${IMAGE_TAG}
-      sed -i "s|IMAGE_TAG|${IMAGE_TAG}|g" deployment/kubernetes/portfolio-conf.yml
-      cat deployment/kubernetes/portfolio-conf.yml
+    -  sed -i "s|IMAGE_TAG|${IMAGE_TAG}|g" deployment/kubernetes/portfolio-conf.yml
     - kubectl apply -f deployment/kubernetes/portfolio-conf.yml
   after_script:
     - |
