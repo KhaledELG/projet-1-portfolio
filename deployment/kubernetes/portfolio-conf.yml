@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: portfolio
-        image: ghcr.io/khaledelg/portfolio:1085477305
+        image: ghcr.io/khaledelg/portfolio:IMAGE_TAG
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

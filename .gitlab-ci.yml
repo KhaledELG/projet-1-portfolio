@@ -218,6 +218,7 @@ kubernetes:deploy:
   script:
     - cp config ~/.kube/config
     - export KUBECONFIG=~/.kube/config
+    - sed -i "s|'ghcr.io/khaledelg/portfolio:IMAGE_TAG'|'ghcr.io/khaledelg/portfolio:${IMAGE_TAG}'|g" deployment/kubernetes/portfolio-conf.yml
     - kubectl apply -f deployment/kubernetes/portfolio-conf.yml
   after_script:
     - |
