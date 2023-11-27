@@ -6,7 +6,8 @@ workflow:
 stages:
   - decrypt
   - release
-  - build
+  - npm_build
+  - docker_build
   - deploy
 
 variables:
@@ -85,8 +86,8 @@ feat_release:release:
     reports:
       dotenv: build.env
 
-npm:build:
-  stage: build
+npm_build:
+  stage: npm_build
   image: 
     name: node:15.12-alpine3.13
     entrypoint: [""]
@@ -112,8 +113,8 @@ npm:build:
     - public
     expire_in: 1h
 
-docker:build:
-  stage: build
+docker_build:
+  stage: docker_build
   image:
     name: docker:24.0.5
     entrypoint: [""]
@@ -122,38 +123,7 @@ docker:build:
       alias: dind
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
-  needs: ["semantic_release:release","npm:build"]
-  variables:
-    DOCKER_HOST: tcp://dind:2375
-    APP_NAME: portfolio
-  before_script:
-    - |
-      echo "===== GitLab CI/CD | Docker Build ====="
-      echo "[INFO] Project name: ${CI_PROJECT_NAME} -- Branch: ${CI_COMMIT_BRANCH} -- Tag: ${CI_COMMIT_TAG}"
-      echo "[INFO] Creating Docker image..."
-  script:
-    - |
-      mkdir ~/.docker
-      echo "{\"auths\":{\"${CI_GITHUB_HOST}\":{\"auth\":\"$(printf "%s:%s" "${CI_GITHUB_USER}" "${CI_GITHUB_TOKEN}" | base64 | tr -d '\n')\"}}}" > ~/.docker/config.json
-    - |
-      docker build -f deployment/docker/Dockerfile -t ${CI_GITHUB_HOST}/${APP_NAME}:${IMAGE_TAG} .
-      docker push ${CI_GITHUB_HOST}/${APP_NAME}:${IMAGE_TAG}
-  after_script:
-    - |
-      echo "[INFO] Docker build and push complete!"
-      echo "[INFO] Docker image available: ${CI_GITHUB_HOST}/${APP_NAME}:${IMAGE_TAG}"
-
-docker:build:
-  stage: build
-  image:
-    name: docker:24.0.5
-    entrypoint: [""]
-  services:
-    - name: docker:24.0.5-dind
-      alias: dind
-  rules:
     - if: $CI_COMMIT_REF_NAME =~ /^feat/
-  needs: ["feat_release:release","npm:build"]
   variables:
     DOCKER_HOST: tcp://dind:2375
     APP_NAME: portfolio
@@ -174,7 +144,7 @@ docker:build:
       echo "[INFO] Docker build and push complete!"
       echo "[INFO] Docker image available: ${CI_GITHUB_HOST}/${APP_NAME}:${IMAGE_TAG}"
 
-pages:build:
+pages:deploy:
   stage: deploy
   image: 
     name: node:15.12-alpine3.13
