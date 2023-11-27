@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.7](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.0.6...v1.0.7) (2023-11-27)
+
+
+### Bug Fixes
+
+* Correction de la substitution d'IMAGE_TAG ([98b3961](https://gitlab.com/kelg/linkedin/projet-1/portfolio/commit/98b39613f0d718d0472409eb70915830d8c8c4b6))
+
 ## [1.0.6](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.0.5...v1.0.6) (2023-11-27)
 
 
