@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0 (2023-11-27)
+
+
+### Features
+
+* **kubernetes:** Ajout du déploiement de l'app dans le cluster ([1676405](https://gitlab.com/kelg/linkedin/projet-1/portfolio/commit/1676405f3dd733de16d9d454b504a79367483e79))
+
 ## [1.0.9](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.0.8...v1.0.9) (2023-11-26)
 
 
