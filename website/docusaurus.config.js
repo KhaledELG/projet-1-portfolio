@@ -3,7 +3,7 @@ module.exports = {
   title: "KhaledELG's Portfolio",
   tagline: 'A React-based static github website template.',
   url: 'https://fr-forge.dotsinfra.com',
-  baseUrl: '/portfolio',
+  baseUrl: '/portfolio/',
   organizationName: 'KhaledELG',
   projectName: '',
   onBrokenLinks: 'throw',
