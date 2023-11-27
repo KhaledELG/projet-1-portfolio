@@ -2,8 +2,8 @@
 module.exports = {
   title: "KhaledELG's Portfolio",
   tagline: 'A React-based static github website template.',
-  url: 'https://github.com',
-  baseUrl: '/',
+  url: 'https://fr-forge.dotsinfra.com',
+  baseUrl: '/portfolio/',
   organizationName: 'KhaledELG',
   projectName: '',
   onBrokenLinks: 'throw',
@@ -39,7 +39,7 @@ module.exports = {
           items: [
             {
               label: 'Home',
-              to: '/',
+              to: '/portfolio/',
             },
             {
               label: 'Resume',
@@ -87,7 +87,7 @@ module.exports = {
       'docusaurus-portfolio-plugin',
       {
         username: 'KhaledELG',
-        path: '/',
+        path: '/portfolio/',
         pageTitle: 'My Site',
         pageDescription: 'About me.',
         userOptions: {},

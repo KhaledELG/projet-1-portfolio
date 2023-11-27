@@ -5,8 +5,8 @@
 /website/build
 
 # Generated files
-/website.docusaurus
-/website.cache-loader
+/website/.docusaurus
+/website/.cache-loader
 
 # Misc
 /website/.DS_Store
