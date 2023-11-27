@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: portfolio-deployment
+  name: portfolio
   namespace: default
 spec:
   replicas: 1
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: portfolio
-        image: ${CI_GITHUB_HOST}/docausurus:${IMAGE_TAG}
+        image: ghcr.io/khaledelg/portfolio:1085477305
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
@@ -31,7 +31,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: homepage
+    app: portfolio
   ports:
     - protocol: TCP
       port: 80
