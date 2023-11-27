@@ -219,7 +219,8 @@ kubernetes:deploy:
     - cp config ~/.kube/config
     - export KUBECONFIG=~/.kube/config
     - |
-      sed -i "s|'IMAGE_TAG'|'${IMAGE_TAG}'|g" deployment/kubernetes/portfolio-conf.yml
+      export IMAGE_TAG=${IMAGE_TAG}
+      sed -i "s|IMAGE_TAG|${IMAGE_TAG}|g" deployment/kubernetes/portfolio-conf.yml
       cat deployment/kubernetes/portfolio-conf.yml
     - kubectl apply -f deployment/kubernetes/portfolio-conf.yml
   after_script:
