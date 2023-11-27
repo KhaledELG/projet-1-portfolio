@@ -237,6 +237,7 @@ kubernetes:deploy:
     entrypoint: [""]
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
+  needs: ["kubernetes:kubeconfig"]
   before_script:
     - |
       echo "===== GitLab CI/CD | Kubernetes ====="
