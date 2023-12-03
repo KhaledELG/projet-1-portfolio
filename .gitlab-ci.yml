@@ -14,7 +14,7 @@ variables:
     description: "PUBLIC_IP"
     value: ""
 
-semantic_release:
+semantic_release:release:
   stage: release
   image:
     name: node:18.18.2-bullseye
