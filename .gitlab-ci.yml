@@ -33,6 +33,9 @@ semantic_release:release:
     - semantic-release
     - |
       cat CHANGELOG.md | head -n $(grep -n -m 1 '##' CHANGELOG.md | awk -F ":" '{print $1}') | tail -n 1 | cut -d '(' -f1
+      cat CHANGELOG.md | head -n $(grep -n -m 1 '##' CHANGELOG.md | awk -F ":" '{print $1}') | tail -n 1 | cut -d '(' -f1 | grep -Eo '\[?[0-9]+\.[0-9]+\.[0-9]+\]?'
+      cat CHANGELOG.md | head -n $(grep -n -m 1 '##' CHANGELOG.md | awk -F ":" '{print $1}') | tail -n 1 | cut -d '(' -f1 | grep -Eo '\[?[0-9]+\.[0-9]+\.[0-9]+\]?' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+'
+
       IMAGE_TAG=$(cat CHANGELOG.md | head -n $(grep -n -m 1 '##' CHANGELOG.md | awk -F ":" '{print $1}') | tail -n 1 | cut -d '(' -f1 | grep -Eo '\[?[0-9]+\.[0-9]+\.[0-9]+\]?' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
       echo "IMAGE_TAG=$IMAGE_TAG" > build.env
   after_script:
