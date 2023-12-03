@@ -4,42 +4,17 @@ workflow:
     - if: $CI_PIPELINE_SOURCE == 'web'
 
 stages:
-  - decrypt
   - release
   - npm_build
   - docker_build
   - deploy
 
 variables:
-  ANSIBLE_VAULT_PASS:
-    description: "ANSIBLE_VAULT_PASS"
-    value: ""
-  AWS_EC2_CURRENT_IP:
-    description: "AWS_EC2_CURRENT_IP"
+  PUBLIC_IP:
+    description: "PUBLIC_IP"
     value: ""
 
-decrypt:
-  stage: decrypt
-  image:
-    name: registry.hub.docker.com/cytopia/ansible:latest-tools
-    entrypoint: [""]
-  rules:
-    - if: $CI_COMMIT_REF_NAME == 'main'
-  before_script:
-    - |
-      echo "===== GitLab CI/CD | Ansible ====="
-      echo "[INFO] Project name: ${CI_PROJECT_NAME} -- Branch: ${CI_COMMIT_BRANCH} -- Tag: ${CI_COMMIT_TAG}"
-      echo "[INFO] Decrypting secrets..."
-  script:
-    - ansible-vault decrypt secrets.txt --vault-password-file <(echo "${ANSIBLE_VAULT_PASS}")
-  after_script:
-    - |
-      echo "[INFO] Secrets decrypted!"
-  artifacts:
-    reports:
-      dotenv: secrets.txt
-
-semantic_release:release:
+semantic_release:
   stage: release
   image:
     name: node:18.18.2-bullseye
@@ -47,7 +22,7 @@ semantic_release:release:
   rules:
     - if: $CI_COMMIT_REF_NAME == 'main'
   variables:
-    GIT_CREDENTIALS: "${PROJECT_ACCESS_USER}:${PROJECT_ACCESS_TOKEN}"
+    GIT_CREDENTIALS: "${GITLAB_USERNAME}:${GITLAB_TOKEN}"
   before_script:
     - |
       echo "===== GitLab CI/CD | Semantic release ====="
@@ -57,7 +32,7 @@ semantic_release:release:
     - npm install -g semantic-release @semantic-release/gitlab@v12.0.3 @semantic-release/changelog conventional-changelog-conventionalcommits @semantic-release/commit-analyzer @semantic-release/git
     - semantic-release
     - |
-      IMAGE_TAG=$(curl -skL -H "Authorization: Bearer ${GL_TOKEN}" -X GET "https://gitlab.com/kelg/linkedin/projet-1/portfolio/-/blob/main/CHANGELOG.md?ref_type=heads"  | grep "Release " | awk -F 'Release ' '{print $2}' | awk -F '</a>' '{print $1}')
+      IMAGE_TAG=$(cat CHANGELOG.md | sed -n '6 s/.*\[\(.*\)\].*/\1/p')
       echo "IMAGE_TAG=$IMAGE_TAG" > build.env
   after_script:
     - |
@@ -126,6 +101,7 @@ docker_build:
     - if: $CI_COMMIT_REF_NAME =~ /^feat/
   variables:
     DOCKER_HOST: tcp://dind:2375
+    GITHUB_HOST: ghcr.io/khaledelg
     APP_NAME: portfolio
   before_script:
     - |
@@ -135,14 +111,14 @@ docker_build:
   script:
     - |
       mkdir ~/.docker
-      echo "{\"auths\":{\"${CI_GITHUB_HOST}\":{\"auth\":\"$(printf "%s:%s" "${CI_GITHUB_USER}" "${CI_GITHUB_TOKEN}" | base64 | tr -d '\n')\"}}}" > ~/.docker/config.json
+      echo "{\"auths\":{\"${GITHUB_HOST}\":{\"auth\":\"$(printf "%s:%s" "${GITHUB_USERNAME}" "${GITHUB_TOKEN}" | base64 | tr -d '\n')\"}}}" > ~/.docker/config.json
     - |
-      docker build -f deployment/docker/Dockerfile -t ${CI_GITHUB_HOST}/${APP_NAME}:${IMAGE_TAG} .
-      docker push ${CI_GITHUB_HOST}/${APP_NAME}:${IMAGE_TAG}
+      docker build -f deployment/docker/Dockerfile -t ${GITHUB_HOST}/${APP_NAME}:${IMAGE_TAG} .
+      docker push ${GITHUB_HOST}/${APP_NAME}:${IMAGE_TAG}
   after_script:
     - |
       echo "[INFO] Docker build and push complete!"
-      echo "[INFO] Docker image available: ${CI_GITHUB_HOST}/${APP_NAME}:${IMAGE_TAG}"
+      echo "[INFO] Docker image available: ${GITHUB_HOST}/${APP_NAME}:${IMAGE_TAG}"
 
 pages:deploy:
   stage: deploy
@@ -192,7 +168,7 @@ kubernetes:kubeconfig:
       touch ~/.ssh/config
       echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - |
-      scp $AWS_SSH_USER@$AWS_EC2_CURRENT_IP:~/.kube/config config
+      scp $AWS_SSH_USER@$PUBLIC_IP:~/.kube/config config
       chmod 644 config
   after_script:
     - |
