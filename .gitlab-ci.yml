@@ -32,7 +32,10 @@ semantic_release:release:
     - npm install -g semantic-release @semantic-release/gitlab@v12.0.3 @semantic-release/changelog conventional-changelog-conventionalcommits @semantic-release/commit-analyzer @semantic-release/git
     - semantic-release
     - |
-      IMAGE_TAG=$(cat CHANGELOG.md | head -n 6 | tail -n 1 | cut -d '(' -f1 |grep -Eo '\[?[0-9]+\.[0-9]+\.[0-9]+\]?' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
+      ls -l
+      cat CHANGELOG.md
+      cat CHANGELOG.md | head -n 6 | tail -n 1 | cut -d '(' -f1 |
+      IMAGE_TAG=$(cat CHANGELOG.md | head -n 6 | tail -n 1 | cut -d '(' -f1 | grep -Eo '\[?[0-9]+\.[0-9]+\.[0-9]+\]?' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
       echo "IMAGE_TAG=$IMAGE_TAG" > build.env
   after_script:
     - |
