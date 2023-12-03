@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0 (2023-12-03)
+
+
+### Bug Fixes
+
+* Github vars ([0ebb0b0](https://gitlab.com/kelg/linkedin/projet-1/portfolio/commit/0ebb0b0eeef9d408dd856fd50eff9a9bfdf79a93))
+* Github vars ([24e623b](https://gitlab.com/kelg/linkedin/projet-1/portfolio/commit/24e623b7c5ced70e7d17b647c562bad640780bf4))
+
 ## [1.0.8](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.0.7...v1.0.8) (2023-11-27)
 
 
