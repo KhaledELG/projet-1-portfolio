@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.2.0...v1.3.0) (2023-12-03)
+
+
+### Features
+
+* Samntics Vars ([01cbdc6](https://gitlab.com/kelg/linkedin/projet-1/portfolio/commit/01cbdc6fdd1e5d6d0704c42cbc6d86d2b7f653ab))
+
 ## [1.2.0](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.1.0...v1.2.0) (2023-12-03)
 
 
