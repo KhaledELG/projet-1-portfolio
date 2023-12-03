@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.3](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.3.2...v1.3.3) (2023-12-03)
+
+
+### Bug Fixes
+
+* Semantics Varss ([7ca3aab](https://gitlab.com/kelg/linkedin/projet-1/portfolio/commit/7ca3aabe46a9a8f97f0f221091aff60bcac293f6))
+
 ## [1.3.2](https://gitlab.com/kelg/linkedin/projet-1/portfolio/compare/v1.3.1...v1.3.2) (2023-12-03)
 
 
